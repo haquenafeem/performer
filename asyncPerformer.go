@@ -17,6 +17,7 @@ func (p *asyncPerformer) Perform(fn HandlerFunc) Performer {
 func NewAsyncPerformer() Performer {
 	return &asyncPerformer{
 		ctx: &Context{
+			useLock: true,
 			dataMap: make(map[string]any),
 			err:     nil,
 		},
