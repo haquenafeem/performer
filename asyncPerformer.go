@@ -5,10 +5,11 @@ type asyncPerformer struct {
 }
 
 func (p *asyncPerformer) Perform(fn HandlerFunc) Performer {
-
 	go func() {
 		err := fn(p.ctx)
+		p.ctx.Lock()
 		p.ctx.err = err
+		p.ctx.Unlock()
 	}()
 
 	return p
